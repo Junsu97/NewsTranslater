@@ -2,6 +2,7 @@ package home.practice;
 
 import home.practice.IBase.IOcrService;
 import home.practice.dto.OcrDTO;
+import home.practice.impl.OcrService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -15,12 +16,13 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 @SpringBootApplication
 public class NewsTranslaterApplication implements CommandLineRunner {
-    private final RestTemplate restTemplate;
     private final IOcrService ocrService;
     public static void main(String[] args) {
 
         SpringApplication.run(NewsTranslaterApplication.class, args);
     }
+
+    // Setter 메서드를 통해 ocrService 주입
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -39,7 +41,7 @@ public class NewsTranslaterApplication implements CommandLineRunner {
         pDTO.setFilePath(filePath);
         pDTO.setFileName(fileName);
 
-        OcrDTO rDTO = ocrService.getReadforImageText(pDTO,restTemplate);
+        OcrDTO rDTO = ocrService.getReadforImageText(pDTO,restTemplate());
 
         String result = rDTO.getResult();
 

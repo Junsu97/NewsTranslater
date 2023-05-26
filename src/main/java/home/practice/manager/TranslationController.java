@@ -15,7 +15,7 @@ public class TranslationController {
     @GetMapping("/translate")
     public String translate(@RequestParam("text") String text,
                                      @RequestParam("source") String sourceLang,
-                                     @RequestParam("target") String targetLang) {
+                                     @RequestParam("target") String targetLang){
         return translatorClient.translate(text, sourceLang, targetLang);
     }
 }
